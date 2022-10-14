@@ -25,10 +25,11 @@ function HamMenu(){
 
 
     return (
-        <Menu styles={styles} width={'40%'}>
+        <Menu styles={styles} width={'60%'}>
             <a id="home" className="menu-item" href="/">Home</a>
             <a id="about" className="menu-item" href="/about">About</a>
-            <a id="signUp" className="menu-item" href="/contact">Sign Up</a>
+            <a id="signUp" className="menu-item" href="/signup">Sign Up</a>
+            <a id="account" className="menu-item" href="/acccount/123">Account</a>
         </Menu>
     );
 

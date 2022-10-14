@@ -1,17 +1,24 @@
 import './App.css';
-import React from "react";
-import ReactDOM from "react-dom";
-
 import Header from './Header';
-import HamMenu from './Menu';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Home';
+import About from './About';
+import SignUp from './SignUp';
+import Account from './Account';
 
 function App() {
   return (
     <div className="App">
-      <HamMenu/>
       <Header/>
       <div className='main'>
-        stuff goes here
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home/>} />
+          <Route path='/signup' element={<SignUp/>} />
+          <Route path='/about' element={<About/>} />
+          <Route path='/account/:id' element={<Account/>} />
+        </Routes>
+      </Router>
       </div>
     </div>
   );
