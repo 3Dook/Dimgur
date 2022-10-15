@@ -6,9 +6,12 @@ import About from './About';
 import SignUp from './SignUp';
 import Account from './Account';
 
+import NavBar from './Navbar';
+
 function App() {
   return (
     <div className="App">
+      <NavBar/>
       <Header/>
       <div className='main'>
       <Router>
@@ -19,6 +22,8 @@ function App() {
           <Route path='/account/:id' element={<Account/>} />
         </Routes>
       </Router>
+      </div>
+      <div className='test'>
       </div>
     </div>
   );
