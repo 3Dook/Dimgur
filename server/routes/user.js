@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router();
 const passport = require('passport')
 const User = require('../models/user.model');
-const { isLoggedIn, isCookied } = require('../middleware');
+const { isLoggedIn } = require('../middleware');
 
 router.route('/register')
     .get((req, res)=>{
-        res.status(200).json({message: "Please post and register a new user"})
+        res.status(200).json({Message: "Please post and register a new user"})
     })
     .post(async (req,res, next)=>{
         try{
@@ -18,68 +18,47 @@ router.route('/register')
                 if (err){
                     return next(err);
                 }
-                res.cookie("user_token", registerUser._id)
-                res.status(200).json({data: registerUser, message: "Success!"})
+                res.status(200).json({data: registerUser, Message: "Success!"})
             })
-            
         } catch(e){
-            res.status(400).json({message: "FAILED at registering user", e})
+            res.status(400).json({Message: "FAILED at registering user"})
         }
     })
 
 router.route('/login')
     .get((req, res)=>{
-        res.status(200).json({message: "NEED TO GIVE PAGE to post and load"})
+        res.status(200).json({Message: "NEED TO GIVE PAGE to post and load"})
     })
     .post(
         passport.authenticate('local'), (req, res)=>{
-            const redirectUrl = req.session.returnTo || '/home';
-            delete req.session.returnTo;
-            /*             res.cookie("user_id", req.user._id ) */
-            res.cookie("user_token", req.user._id)
-            res.status(208).json({message: "User signed in", data: req.user._id})
+/*             const redirectUrl = req.session.returnTo || '/home';
+            delete req.session.returnTo; */
+            res.status(208).json({Message: "User signed in", data: req.session})
     })
 
 router.route('/account')
     .get(isLoggedIn, (req, res)=>{
-        res.status(200).json({data: req.user.id, message:"user is signed on"})
+        res.status(200).json({id: req.user._id, message:"THIS SHOULD WORK"})
     })
     .delete(isLoggedIn, async (req, res)=>{
         id = req.user["_id"]
         await User.findByIdAndDelete(id)
             .then(data =>{
                 req.logout();
-                res.status(201).json({message: "SUCCESS - USER DELETED"})
+                res.status(201).json({Message: "SUCCESS - USER DELETED"})
             })
             .catch(err =>{
-                res.status(404).json({message: "UNABLE TO DELETE"})
-            })
-    })
-
-router.route('/acc')
-    .get(isCookied, (req, res)=>{
-        
-        res.status(200).json({id: req.cookies["user_token"], message:"user is signed on sorta"})
-    })
-    .delete(isLoggedIn, async (req, res)=>{
-        id = req.user["_id"]
-        await User.findByIdAndDelete(id)
-            .then(data =>{
-                req.logout();
-                res.status(201).json({message: "SUCCESS - USER DELETED"})
-            })
-            .catch(err =>{
-                res.status(404).json({message: "UNABLE TO DELETE"})
+                res.status(404).json({Message: "UNABLE TO DELETE"})
             })
     })
 
 router.route('/logout')
     .get(isLoggedIn, (req, res)=>{
-        res.status(210).json({message: 'need to give logout page'})
+        res.status(210).json({Message: 'need to give logout page'})
     })
     .post(isLoggedIn, (req, res)=>{
         req.logout();
-        res.status(211).json({message: "successfully LOGGED OUT"})
+        res.status(211).json({Message: "successfully LOGGED OUT"})
     })
 
 module.exports = router;

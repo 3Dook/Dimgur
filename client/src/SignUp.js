@@ -71,11 +71,10 @@ const SignUp = () => {
         try {
             const response = await axios({
                 method: 'get',
-                url: domain + "/acc",
+                url: domain + "/account",
                 withCredentials: true,
             })
                 .then((res)=>{
-
                     console.log(res.data)
                 })
                 .catch((e)=>{
@@ -88,7 +87,25 @@ const SignUp = () => {
         }
     }
 
-
+    const handleLogOut = async e =>{
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: 'post',
+                url: domain + "/logout",
+                withCredentials: true,
+            })
+                .then((res)=>{
+                    console.log(res.data)
+                })
+                .catch((e)=>{
+                    console.log("failed - ", e.response.data.message)
+                })
+        } catch (error) {
+            console.error(error.Message)
+            
+        }
+    }
     return (
         <div className="signup">
 
@@ -151,9 +168,15 @@ const SignUp = () => {
                 
             </form>
 
+
             <h1>Account</h1>
             <form onSubmit={handleAccount}>
                 <input type="submit" value="Submit" className="submitInput" />
+            </form>
+
+            <h1>LOG OUT</h1>
+            <form onSubmit={handleLogOut}>
+                <input type="submit" value="LOG OUT" className="logOutSubmit"/>
             </form>
         </div>
 

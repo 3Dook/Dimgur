@@ -1,7 +1,7 @@
 const isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()){
         req.session.returnTo = req.originalUrl
-        return res.status(404).json({Message: "UNABLE TO LOGGED IN not - middleware"})
+        return res.status(404).json({message: "UNABLE TO LOGGED IN not - middleware"})
     }
     next();
 }

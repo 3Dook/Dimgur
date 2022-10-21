@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import {GiHamburgerMenu} from "react-icons/gi";
 import {GrClose} from "react-icons/gr";
-
 import './css/NavBar.css';
+import axios from 'axios';
+const domain = "http://localhost:5001/user";
+
 const sidebarData = [
     {
         title: 'HOME',
@@ -43,6 +45,27 @@ function NavBar() {
     }
  
 
+    const handleLogOut = async e =>{
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: 'post',
+                url: domain + "/logout",
+                withCredentials: true,
+            })
+                .then((res)=>{
+                    console.log(res.data)
+                })
+                .catch((e)=>{
+                    console.log("failed - ", e.response.data.message)
+                })
+        } catch (error) {
+            console.error(error.Message)
+            
+        }
+    }
+    
+
     return (
       <div className="navigation">
         <div className="hamburger">
@@ -63,6 +86,9 @@ function NavBar() {
                             </li>
                         );
                     })}
+            <form onSubmit={handleLogOut}>
+                <input type="submit" value="LOG OUT" className="logOutSubmit"/>
+            </form>
             </ul>
         </nav>
 

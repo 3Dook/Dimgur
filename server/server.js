@@ -9,12 +9,11 @@ const passport = require('passport')
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.model')
 //sessions
-const cookieParser = require("cookie-parser");
 
 // 
 require('dotenv').config()
 const PORT = process.env.PORT || 5001;
-const URI = process.env.URI || 'mongodb://localhost:27017/dimgur';
+const URI = process.env.URI || 'mongodb://localhost:27017/blockTest';
 
 //Database
 mongoose.connect(URI,
@@ -31,8 +30,8 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        expires: Date.now() + 1000 * 7,
-        maxAge: 1000 * 7
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
 
@@ -40,7 +39,6 @@ const sessionConfig = {
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 app.options('*', cors());
 app.use(express.json())
-app.use(cookieParser());
 app.use(session(sessionConfig))
 app.use(passport.initialize())
 app.use(passport.session())

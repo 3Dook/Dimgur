@@ -19,15 +19,16 @@ function App() {
         try {
             const response = await axios({
                 method: 'get',
-                url: domain + "/user/acc",
+                url: domain + "/user/account",
                 withCredentials: true,
             })
                 .then((res)=>{
+                  
                     console.log(res.data.id)
                     setUser(res.data.id)
                 })
                 .catch((e)=>{
-                    console.log("failed - ", e.response.data.Message)
+                    console.log("failed - ", e.response.data.message)
                 })
 /*             window.location = "/";  */
         } catch (error) {
