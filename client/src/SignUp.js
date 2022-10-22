@@ -59,7 +59,7 @@ const SignUp = () => {
                 .catch((e)=>{
                     console.log("failed - ", e.response.data.message)
                 })
-/*             window.location = "/";  */
+            window.location = "/account"; 
         } catch (error) {
             console.error(error.Message)
             

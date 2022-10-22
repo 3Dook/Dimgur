@@ -23,9 +23,10 @@ function App() {
                 withCredentials: true,
             })
                 .then((res)=>{
-                  
                     console.log(res.data.id)
                     setUser(res.data.id)
+                    // set is Auth here since we know we are getting user data
+                    setIsAuth(!isAuth)
                 })
                 .catch((e)=>{
                     console.log("failed - ", e.response.data.message)
@@ -43,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar/>
+      <NavBar auth={isAuth}/>
       <Header/>
       <div className='main'>
       <Router>
