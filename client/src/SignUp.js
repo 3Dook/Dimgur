@@ -30,6 +30,7 @@ const SignUp = () => {
             })
                 .then((res)=>{
                     console.log(res.data)
+                    window.location = "/account"; 
                 })
                 .catch((e)=>{
                     console.log("failed - ", e.response.data.message)
@@ -55,11 +56,14 @@ const SignUp = () => {
             })
                 .then((res)=>{
                     console.log(res.data)
+/*                     window.location = "/account";  */
                 })
                 .catch((e)=>{
-                    console.log("failed - ", e.response.data.message)
+                    console.log(e)
+                    console.log("failed - ", e.response.data)
+                    
+                    window.location = "/signup"
                 })
-            window.location = "/account"; 
         } catch (error) {
             console.error(error.Message)
             
@@ -101,6 +105,7 @@ const SignUp = () => {
                 .catch((e)=>{
                     console.log("failed - ", e.response.data.message)
                 })
+            window.location = "/"; 
         } catch (error) {
             console.error(error.Message)
             
@@ -169,15 +174,6 @@ const SignUp = () => {
             </form>
 
 
-            <h1>Account</h1>
-            <form onSubmit={handleAccount}>
-                <input type="submit" value="Submit" className="submitInput" />
-            </form>
-
-            <h1>LOG OUT</h1>
-            <form onSubmit={handleLogOut}>
-                <input type="submit" value="LOG OUT" className="logOutSubmit"/>
-            </form>
         </div>
 
     )

@@ -13,7 +13,7 @@ const User = require('./models/user.model')
 // 
 require('dotenv').config()
 const PORT = process.env.PORT || 5001;
-const URI = process.env.URI || 'mongodb://localhost:27017/blockTest';
+const URI = process.env.URI || 'mongodb://localhost:27017/dimgur';
 
 //Database
 mongoose.connect(URI,
