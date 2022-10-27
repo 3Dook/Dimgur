@@ -48,6 +48,7 @@ passport.deserializeUser(User.deserializeUser());
 
 //routes
 /* app.use('/api', require('./routes/block')); */
+app.use('/images', require('./routes/image'))
 app.use('/user', require('./routes/user'))
 app.use('*', (req, res)=>{
     res.status(200).json("Please use /api backend")

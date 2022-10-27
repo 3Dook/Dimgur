@@ -8,7 +8,7 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    museum: [{id: String, date: Date}]
+    museum: [{id: String}]
 });
 
 UserSchema.plugin(passportLocalMongoose); // username and passport schema are added in
