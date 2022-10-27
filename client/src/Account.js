@@ -3,11 +3,32 @@ import axios from 'axios';
 
 const domain = "http://localhost:5001/user";
 
-function Account() {
+function Account(props) {
 
     const [user, setUser] = useState({id: 0, username: "temp", museum: []})
 
-    const handleAccount = async e =>{
+    const handleAccount = async() =>{
+        try {
+            const response = await axios({
+                method: 'get',
+                url: domain + "/account",
+                withCredentials: true,
+            })
+                .then((res)=>{
+                    console.log(res.data, "account")
+                    setUser(res.data.payload)
+                })
+                .catch((e)=>{
+                    console.log("failed - ", e.response.data.message)
+                })
+/*             window.location = "/";  */
+        } catch (error) {
+            console.error(error.Message)
+            
+        }
+    }
+
+    const handleAccount3 = async e =>{
         e.preventDefault();
         try {
             const response = await axios({
@@ -16,7 +37,7 @@ function Account() {
                 withCredentials: true,
             })
                 .then((res)=>{
-                    console.log(res.data)
+                    console.log(res.data, "account")
                     setUser(res.data.payload)
                 })
                 .catch((e)=>{
@@ -50,10 +71,14 @@ function Account() {
         }
     }
 
+    useEffect(()=>{
+        handleAccount();
+    }, []);
+
     return (
       <div className="">
           <h1>Account</h1>
-          <form onSubmit={handleAccount}>
+          <form onSubmit={handleAccount3}>
               <input type="submit" value="Submit" className="submitInput" />
           </form>
         

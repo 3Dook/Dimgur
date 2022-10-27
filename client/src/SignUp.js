@@ -56,7 +56,7 @@ const SignUp = () => {
             })
                 .then((res)=>{
                     console.log(res.data)
-/*                     window.location = "/account";  */
+                    window.location = "/account"; 
                 })
                 .catch((e)=>{
                     console.log(e)
@@ -70,47 +70,10 @@ const SignUp = () => {
         }
     }
 
-    const handleAccount = async e =>{
-        e.preventDefault();
-        try {
-            const response = await axios({
-                method: 'get',
-                url: domain + "/account",
-                withCredentials: true,
-            })
-                .then((res)=>{
-                    console.log(res.data)
-                })
-                .catch((e)=>{
-                    console.log("failed - ", e.response.data.message)
-                })
-/*             window.location = "/";  */
-        } catch (error) {
-            console.error(error.Message)
-            
-        }
-    }
+    useEffect(()=>{
+        handleSubmit();
+    }, []);
 
-    const handleLogOut = async e =>{
-        e.preventDefault();
-        try {
-            const response = await axios({
-                method: 'post',
-                url: domain + "/logout",
-                withCredentials: true,
-            })
-                .then((res)=>{
-                    console.log(res.data)
-                })
-                .catch((e)=>{
-                    console.log("failed - ", e.response.data.message)
-                })
-            window.location = "/"; 
-        } catch (error) {
-            console.error(error.Message)
-            
-        }
-    }
     return (
         <div className="signup">
 

@@ -23,8 +23,8 @@ function App() {
                 withCredentials: true,
             })
                 .then((res)=>{
-                    console.log(res.data.id)
-                    setUser(res.data.id)
+                    console.log(res.data.payload, "app")
+                    setUser(res.data.payload.id)
                     // set is Auth here since we know we are getting user data
                     setIsAuth(!isAuth)
                 })
@@ -52,7 +52,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/signup' element={<SignUp/>} />
           <Route path='/about' element={<About/>} />
-          <Route path='/account' element={<Account/>} />
+          <Route path='/account' element={<Account isAuth={isAuth}/>} />
         </Routes>
       </Router>
       </div>
