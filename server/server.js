@@ -45,6 +45,9 @@ app.use(passport.session())
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+// Static folder to serve our images data
+app.use(express.static('uploads'));
+app.use('/uploads', express.static('uploads'))
 
 //routes
 /* app.use('/api', require('./routes/block')); */

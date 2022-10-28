@@ -4,11 +4,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
-    owner: {type: ObjectId}
+    owner: {type: ObjectId},
     title: {type: String, required: true},
-    date: Date(),
-    descrip: {type: String},
-    location: {type: String}
+    date: {type: Date, default: Date.now},
+    description: {type: String},
+    path: {type: String}
 })
 
 
