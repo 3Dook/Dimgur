@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+#dont save any upload images
+/uploads
+
 # testing
 /coverage
 
