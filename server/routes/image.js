@@ -7,13 +7,17 @@ const { isLoggedIn } = require('../middleware');
 
 const multer = require('multer');
 const path = require('path');
+const { ObjectId } = require('mongodb');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname);
+    let pathName = new ObjectId();
+    const extension = file.mimetype.split('/')[1];
+    const fileName = pathName + '.' + extension;
+    cb(null, fileName)
   }
 });
 
@@ -66,6 +70,8 @@ router.route('/')
             res.status(400).json({message: "FAILED at making new Image"})
         }
     })
+
+
 router.route('/:id')
     .get(async(req, res)=>{
         //get an image based on id of image
@@ -75,7 +81,6 @@ router.route('/:id')
                     let temp = __dirname;
                     temp = temp.slice(0, -7)
                     temp = temp + "\\" + result.path
-                    console.log(temp)
                     
                     res.status(202).sendFile(temp, function(err){
                         if (err){
