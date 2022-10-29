@@ -61,12 +61,12 @@ router.route('/')
                         $push: {museum: result._id.toString()}
                     }, function(err, docs){
                         //delete this for production
-                        if(err){
+/*                         if(err){
                             console.log(err)
                         }
                         else{
                             console.log('Updated User: ', docs);
-                        }
+                        } */
                     })
                     res.status(201).json({
                         message: 'Created image sucessfully',
@@ -85,6 +85,26 @@ router.route('/')
         }
     })
 
+router.route('/data/:id')
+    .get(async(req, res)=>{
+        //get an image based on id of image
+        await Img.findById(req.params.id)
+                .then(result =>{                   
+/*                     console.log(result) */
+                    res.status(202).json({
+                        title: result.title,
+                        description: result.description,
+                        date: result.date,
+                        owner: result.owner
+                    });
+                })
+                .catch(error =>{
+                    res.status(404).json({
+                        message: "Image not found"
+                    })
+                })
+
+    })
 
 router.route('/:id')
     .get(async(req, res)=>{
@@ -95,13 +115,14 @@ router.route('/:id')
                     let temp = __dirname;
                     temp = temp.slice(0, -7)
                     temp = temp + "\\" + result.path
-                    
+                   
+/*                     console.log(result) */
                     res.status(202).sendFile(temp, function(err){
                         if (err){
                             console.log(err)
-                        } else {
+                        } /* else {
                             console.log('sucesss')
-                        }
+                        } */
                     });
                 })
                 .catch(error =>{
@@ -117,37 +138,42 @@ router.route('/:id')
 
         await Img.findById(id)
             .then(async data =>{
-                console.log(data.owner.toString())
-                console.log(userId.toString())
                 if (data.owner.toString() === userId.toString()) {
                     // delete it because it is correct
-                    Img.deleteOne(id)
-                    //remove it from the server as well
-                    //get the path of the file.
-
-                    let temp = __dirname;
-                    temp = temp.slice(0, -7)
-                    temp = temp + "\\" + data.path
-                    fs.unlink(temp,function(err){
-                            if(err) return console.log(err);
-                            console.log('file deleted successfully');
-                    });  
-
-                    // find and delete from user's museum collections
-                    User.findByIdAndUpdate(id, {
-                        $pull: {museum: data._id.toString()}
-                    }, function(err, docs){
-                        //delete this for production
-                        if(err){
-                            console.log(err)
-                        }
-                        else{
-                            console.log('Updated User: ', docs);
-                        }
-                    })
-
-                    res.status(202).json({message: "successfully deleted"})
-                }
+                    Img.findByIdAndDelete(id)
+                        .then(results =>{
+                            //remove it from the server as well
+                            //get the path of the file.
+                            let temp = __dirname;
+                            temp = temp.slice(0, -7)
+                            temp = temp + "\\" + data.path
+                            fs.unlink(temp,function(err){
+                                    if(err) return console.log(err);
+                                    console.log('file deleted successfully');
+                            });  
+                        })
+                        .then(remImgFromUser =>{
+                            // find and delete from user's museum collections
+                            User.findByIdAndUpdate(userId, {
+                                $pull: {museum: data._id.toString()}
+                            }, function(err, docs){
+                                //delete this for production
+/*                                 if(err){
+                                    console.log(err)
+                                }
+                                else{
+                                    console.log('Updated User: ', docs);
+                                } */
+                            })
+                            res.status(202).json({message: "successfully deleted"})
+                        })
+                        .catch(error =>{
+                            res.status(404).json({
+                                message: "unable to delete",
+                                error
+                            })
+                        })
+                    }
                 else{
                     res.status(403).json({message: "invalid owner, unable to delete"})
                 }

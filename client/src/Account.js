@@ -1,6 +1,8 @@
 import React, {useEffect, useState } from "react";
 import axios from 'axios';
 
+import ImageCard from "./ImageCard";
+
 const domain = "http://localhost:5001/user";
 
 function Account(props) {
@@ -89,12 +91,14 @@ function Account(props) {
 
         <div>USERNAME: {user.username} - {user.id}</div>
         <div>
-            Collection: {collection}
-            <button
-            onClick={(()=>{
-                console.log({collection})
-            })}            
-            >Collection</button>
+            Collection: 
+            {
+            collection.map((ElementId, key)=>{
+                return(
+                    <ImageCard key={key} id={ElementId} isAuth={props.isAuth}/>
+                )
+            })
+            }
         </div>
         <div>
             <button onClick={()=>{
