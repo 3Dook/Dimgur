@@ -7,6 +7,7 @@ const { isLoggedIn } = require('../middleware');
 
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs')
 const { ObjectId } = require('mongodb');
 
 const storage = multer.diskStorage({
@@ -40,11 +41,12 @@ const upload = multer({
 
 
 router.route('/')
-    .post(/* isLoggedIn,  */upload.single('productImage'), async (req,res, next)=>{
+    .post(isLoggedIn, upload.single('productImage'), async (req,res, next)=>{
         try{
             //make a new images and save owner to user and user to owner
+            let id = req.user["_id"]
             const product = new Img({
-/*                 owner: "1234", */
+                owner: id,
                 title: req.body.title,
                 description: req.body.description,
                 path: req.file.path
@@ -54,6 +56,18 @@ router.route('/')
                 .save()
                 .then(result =>{
                     console.log(result)
+                    // need to update USER list of museum 
+                    User.findByIdAndUpdate(id, {
+                        $push: {museum: result._id.toString()}
+                    }, function(err, docs){
+                        //delete this for production
+                        if(err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('Updated User: ', docs);
+                        }
+                    })
                     res.status(201).json({
                         message: 'Created image sucessfully',
                         id: result._id
@@ -89,9 +103,6 @@ router.route('/:id')
                             console.log('sucesss')
                         }
                     });
-/*                     res.status(201).json({
-                        message: "found image",
-                    }) */
                 })
                 .catch(error =>{
                     res.status(404).json({
@@ -101,14 +112,49 @@ router.route('/:id')
 
     })
     .delete(isLoggedIn, async (req, res)=>{
-        id = req.user["_id"]
-        await User.findByIdAndDelete(id)
-            .then(data =>{
-                req.logout();
-                res.status(201).json({message: "SUCCESS - USER DELETED"})
+        let userId = req.user["_id"]
+        let id = req.params.id
+
+        await Img.findById(id)
+            .then(async data =>{
+                console.log(data.owner.toString())
+                console.log(userId.toString())
+                if (data.owner.toString() === userId.toString()) {
+                    // delete it because it is correct
+                    Img.deleteOne(id)
+                    //remove it from the server as well
+                    //get the path of the file.
+
+                    let temp = __dirname;
+                    temp = temp.slice(0, -7)
+                    temp = temp + "\\" + data.path
+                    fs.unlink(temp,function(err){
+                            if(err) return console.log(err);
+                            console.log('file deleted successfully');
+                    });  
+
+                    // find and delete from user's museum collections
+                    User.findByIdAndUpdate(id, {
+                        $pull: {museum: data._id.toString()}
+                    }, function(err, docs){
+                        //delete this for production
+                        if(err){
+                            console.log(err)
+                        }
+                        else{
+                            console.log('Updated User: ', docs);
+                        }
+                    })
+
+                    res.status(202).json({message: "successfully deleted"})
+                }
+                else{
+                    res.status(403).json({message: "invalid owner, unable to delete"})
+                }
+
             })
             .catch(err =>{
-                res.status(404).json({message: "UNABLE TO DELETE"})
+                res.status(404).json({message: "UNABLE TO DELETE", err})
             })
     })
 
