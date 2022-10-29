@@ -44,6 +44,7 @@ router.route('/')
     .post(isLoggedIn, upload.single('productImage'), async (req,res, next)=>{
         try{
             //make a new images and save owner to user and user to owner
+
             let id = req.user["_id"]
             const product = new Img({
                 owner: id,
@@ -51,7 +52,6 @@ router.route('/')
                 description: req.body.description,
                 path: req.file.path
             })
-
             product
                 .save()
                 .then(result =>{

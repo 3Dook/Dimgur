@@ -7,6 +7,7 @@ import About from './About';
 import SignUp from './SignUp';
 import Account from './Account';
 import NavBar from './Navbar';
+import Museum from "./Museum";
 import axios from 'axios';
 
 const domain = "http://localhost:5001"
@@ -53,6 +54,7 @@ function App() {
           <Route path='/signup' element={<SignUp/>} />
           <Route path='/about' element={<About/>} />
           <Route path='/account' element={<Account isAuth={isAuth}/>} />
+          <Route path='/museum' element={<Museum isAuth={isAuth}/>} />
         </Routes>
       </Router>
       </div>

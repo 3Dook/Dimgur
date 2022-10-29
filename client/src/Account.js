@@ -6,7 +6,7 @@ const domain = "http://localhost:5001/user";
 function Account(props) {
 
     const [user, setUser] = useState({id: 0, username: "temp", museum: []})
-
+    const [collection, setCollection] = useState([])
     const handleAccount = async() =>{
         try {
             const response = await axios({
@@ -15,8 +15,9 @@ function Account(props) {
                 withCredentials: true,
             })
                 .then((res)=>{
-                    console.log(res.data, "account")
+/*                     console.log(res.data, "account") */
                     setUser(res.data.payload)
+                    setCollection(res.data.payload.museum)
                 })
                 .catch((e)=>{
                     console.log("failed - ", e.response.data.message)
@@ -87,8 +88,19 @@ function Account(props) {
           </form>
 
         <div>USERNAME: {user.username} - {user.id}</div>
-        <div>Collection: {user.collection}</div>
-        <div>Button to add</div>
+        <div>
+            Collection: {collection}
+            <button
+            onClick={(()=>{
+                console.log({collection})
+            })}            
+            >Collection</button>
+        </div>
+        <div>
+            <button onClick={()=>{
+                window.location = '/museum'
+            }}>ADD IMAGE</button>
+        </div>
       </div>
     );
   }
