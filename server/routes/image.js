@@ -87,6 +87,7 @@ router.route('/')
 
 router.route('/data/:id')
     .get(async(req, res)=>{
+        // This gets the data(description, title, data, owner) to user
         //get an image based on id of image
         await Img.findById(req.params.id)
                 .then(result =>{                   
@@ -131,6 +132,35 @@ router.route('/:id')
                     })
                 })
 
+    })
+    .patch(isLoggedIn, async (req,res)=>{
+        let userId = req.user["_id"]
+        let id = req.params.id
+
+        await Img.findById(id)
+            .then(async data =>{
+                // make sure only the owner is able to update this
+                if (data.owner.toString() === userId.toString()) {
+                    Img.findById(req.params.id)
+                    .then(data =>{
+                        //Error Check here
+                        //
+                        data.title = req.body.title;
+                        data.description = req.body.description;
+                        data.save()
+                        .then(data => res.status(202).json(data))
+                        .catch(e => res.status(400).json({Error: "Unable to update" + e}))
+                    })
+                    .catch(e => res.status(400).json({Error: "Unable to update" + e}))
+                }
+                else{
+                    res.status(403).json({message: "invalid owner, unable to delete"})
+                }
+            })
+            .catch(err =>{
+                res.status(404).json({message: "UNABLE TO UPDATE", err})
+            })
+            
     })
     .delete(isLoggedIn, async (req, res)=>{
         let userId = req.user["_id"]
