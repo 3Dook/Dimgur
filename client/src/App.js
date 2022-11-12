@@ -8,6 +8,7 @@ import SignUp from './SignUp';
 import Account from './Account';
 import NavBar from './Navbar';
 import Museum from "./Museum";
+import EditImage from "./EditImage";
 import axios from 'axios';
 
 const domain = "http://localhost:5001"
@@ -55,6 +56,7 @@ function App() {
           <Route path='/about' element={<About/>} />
           <Route path='/account' element={<Account isAuth={isAuth}/>} />
           <Route path='/museum' element={<Museum isAuth={isAuth}/>} />
+          <Route path='/edit/' element={<EditImage isAuth={isAuth}/>} />
         </Routes>
       </Router>
       </div>

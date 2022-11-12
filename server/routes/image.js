@@ -136,7 +136,6 @@ router.route('/:id')
     .patch(isLoggedIn, async (req,res)=>{
         let userId = req.user["_id"]
         let id = req.params.id
-
         await Img.findById(id)
             .then(async data =>{
                 // make sure only the owner is able to update this

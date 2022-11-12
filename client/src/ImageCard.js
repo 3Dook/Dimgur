@@ -25,11 +25,19 @@ const ImgBar = (props)=>{
             
         }
     }
+
+    const handleEditButton = async () =>{
+
+    }
     
     return (
         <div>
             <button onClick={handleDeleteImg}>DELETE</button>
+            <button onClick={()=>{
+                window.location = '/edit/?id=' + props.id
+            }}>EDIT IMAGE</button>
         </div>
+        
     )
 }
 
