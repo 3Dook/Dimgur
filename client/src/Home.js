@@ -1,7 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
+
+import ImageCard from "./ImageCard";
+
+const domain = "http://localhost:5001";
 
 function Home() {
   const [searchInput, setSearchInput] = useState("");
+  const [collection, setCollection] = useState([])
 
   const handleSearchChange = (e) =>{
     e.preventDefault();
@@ -9,6 +15,32 @@ function Home() {
   }
 
   // method to use the update search input to find images or details
+  const handleHomeSearch = async() =>{
+      try {
+          const response = await axios({
+              method: 'get',
+              url: domain + "/images/search",
+              withCredentials: true,
+          })
+              .then((res)=>{
+                  let payload = []
+                  for(const each in res.data.result){
+                    payload.push(res.data.result[each]._id)
+                  }
+                  setCollection(payload)
+              })
+              .catch((e)=>{
+                  console.log("failed - ", e.response.data.message)
+              })
+      } catch (error) {
+          console.error(error.Message)
+          
+      }
+  }
+  
+    useEffect(()=>{
+        handleHomeSearch();
+    }, []);
 
   return (
     <div className="">
@@ -25,6 +57,16 @@ function Home() {
       </div>
       <div>
         Images content cards go here
+        <div>
+            Collection: 
+            {
+            collection.map((ElementId, key)=>{
+                return(
+                    <ImageCard key={key} id={ElementId} /> 
+                )
+            })
+            }
+        </div>
       </div>
     </div>
   );

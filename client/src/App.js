@@ -25,7 +25,7 @@ function App() {
                 withCredentials: true,
             })
                 .then((res)=>{
-                    console.log(res.data.payload, "app")
+/*                     console.log(res.data.payload, "app") */
                     setUser(res.data.payload.id)
                     // set is Auth here since we know we are getting user data
                     setIsAuth(!isAuth)

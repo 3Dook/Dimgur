@@ -9,6 +9,7 @@ function Account(props) {
 
     const [user, setUser] = useState({id: 0, username: "temp", museum: []})
     const [collection, setCollection] = useState([])
+    
     const handleAccount = async() =>{
         try {
             const response = await axios({

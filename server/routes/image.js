@@ -39,7 +39,6 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-
 router.route('/')
     .post(isLoggedIn, upload.single('productImage'), async (req,res, next)=>{
         try{
@@ -85,6 +84,21 @@ router.route('/')
         }
     })
 
+router.route('/search')
+    .get(async(req, res)=>{
+        await Img.find({})
+            .then(result =>{
+                res.status(202).json({
+                    result
+                })
+            })
+            .catch(error =>{
+                res.status(404).json({
+                    message: "Images unable to be found"
+                })
+            })
+    })
+
 router.route('/data/:id')
     .get(async(req, res)=>{
         // This gets the data(description, title, data, owner) to user
@@ -106,6 +120,8 @@ router.route('/data/:id')
                 })
 
     })
+
+
 
 router.route('/:id')
     .get(async(req, res)=>{
