@@ -8,13 +8,10 @@ import axios from 'axios';
 const domain = "http://localhost:5001/user";
 
 
-const SignUp = () => {
 
+const SignUpCard = () => {
     const [username, setUserName] = useState("")
     const [passW, setPassW] = useState("")
-
-    const [lusername, setlUserName] = useState("")
-    const [lpassW, setlPassW] = useState("")
 
     const handleSubmit = async e =>{
         e.preventDefault();
@@ -41,6 +38,42 @@ const SignUp = () => {
             
         }
     }
+
+    return (
+        <div>
+            <h1>
+                SIGN UP
+            </h1>
+
+            <form onSubmit={handleSubmit}>
+
+                <label>
+                    <div className="userNameLabel">User Name</div>
+                    <input type="text" name="username" 
+                    className="usernameInput"
+                    value={username} 
+                    onChange={ e => setUserName(e.target.value)}/>
+                </label>
+
+
+                <label>
+                    <div className="pwLabel">Password</div>
+                    <input type="text" name="pw" 
+                    className="pwInput"
+                    value={passW} 
+                    onChange={ e => setPassW(e.target.value)}/>
+                </label>
+
+                <input type="submit" value="Submit" className="submitInput" />
+                
+            </form>
+        </div>
+    )
+}
+
+const LoginCard = () =>{
+    const [lusername, setlUserName] = useState("")
+    const [lpassW, setlPassW] = useState("")
 
     const handleLogin = async e =>{
         e.preventDefault();
@@ -70,9 +103,36 @@ const SignUp = () => {
         }
     }
 
-    useEffect(()=>{
-        handleSubmit();
-    }, []);
+    return(
+        <div>
+            <h1>LOGIN</h1>
+                <form onSubmit={handleLogin}>
+
+                    <label>
+                        <div className="userNameLabel">User Name</div>
+                        <input type="text" name="lusername" 
+                        className="usernameInput"
+                        value={lusername} 
+                        onChange={ e => setlUserName(e.target.value)}/>
+                    </label>
+
+
+                    <label>
+                        <div className="pwLabel">Password</div>
+                        <input type="text" name="lpw" 
+                        className="pwInput"
+                        value={lpassW} 
+                        onChange={ e => setlPassW(e.target.value)}/>
+                    </label>
+
+                    <input type="submit" value="Submit" className="submitInput" />
+                    
+                </form>
+        </div>
+    )
+}
+
+const SignUp = () => {
 
     return (
         <div className="signup">
@@ -85,56 +145,9 @@ const SignUp = () => {
                 </IconContext.Provider>
             </div>
             
-            <h1>
-                SIGN UP
-            </h1>
+        <SignUpCard />
 
-            <form onSubmit={handleSubmit}>
-
-                <label>
-                    <div className="userNameLabel">User Name</div>
-                    <input type="text" name="username" 
-                    className="usernameInput"
-                    value={username} 
-                    onChange={ e => setUserName(e.target.value)}/>
-                </label>
-
-
-                <label>
-                    <div className="pwLabel">Password</div>
-                    <input type="text" name="pw" 
-                    className="pwInput"
-                    value={passW} 
-                    onChange={ e => setPassW(e.target.value)}/>
-                </label>
-
-                <input type="submit" value="Submit" className="submitInput" />
-                
-            </form>
-
-        <h1>LOGIN</h1>
-            <form onSubmit={handleLogin}>
-
-                <label>
-                    <div className="userNameLabel">User Name</div>
-                    <input type="text" name="lusername" 
-                    className="usernameInput"
-                    value={lusername} 
-                    onChange={ e => setlUserName(e.target.value)}/>
-                </label>
-
-
-                <label>
-                    <div className="pwLabel">Password</div>
-                    <input type="text" name="lpw" 
-                    className="pwInput"
-                    value={lpassW} 
-                    onChange={ e => setlPassW(e.target.value)}/>
-                </label>
-
-                <input type="submit" value="Submit" className="submitInput" />
-                
-            </form>
+        <LoginCard />
 
 
         </div>
