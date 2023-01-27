@@ -1,8 +1,8 @@
 import React, {useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import { IconContext } from "react-icons";
-import {AiOutlineClose} from 'react-icons/ai';
-/* import './signup.css'; */
+import {AiOutlineClose, AiOutlineSwap} from 'react-icons/ai';
+import './css/signup.css';
 import axios from 'axios';
 
 const domain = "http://localhost:5001/user";
@@ -134,20 +134,37 @@ const LoginCard = () =>{
 
 const SignUp = () => {
 
+    const [showLogin, setShowLogin] = useState(true)
+
+    const handleSwapSection = (e) => {
+        e.preventDefault();
+        setShowLogin(!showLogin)
+    }
+
     return (
         <div className="signup">
 
             <div className="close">
+                <IconContext.Provider value={{ color: "black", size: "2em" }}>
+                    <AiOutlineSwap onClick={handleSwapSection} />
+                </IconContext.Provider>
                 <IconContext.Provider value={{ color: "black", size: "2em" }}>
                         <Link to={'/'}>
                             <AiOutlineClose />
                         </Link>
                 </IconContext.Provider>
             </div>
-            
-        <SignUpCard />
+        
+            <div className="swapSection">
 
-        <LoginCard />
+            {
+                showLogin ?
+                <SignUpCard />
+                :
+                <LoginCard />
+            }
+            </div>
+            
 
 
         </div>
