@@ -51,6 +51,12 @@ const ImageCard = (props) => {
 
     const [imgSrc, setImgSrc] = useState('')
 
+    const [showDetails, setShowDetails] = useState(false)
+
+    const handleHover = () =>{
+        setShowDetails(!showDetails)
+    }
+
     const handleGetImg = async () =>{
         try {
             const response = await axios({
@@ -79,7 +85,8 @@ const ImageCard = (props) => {
     }, []);
 
     return (
-      <div className="ImageCard" id={props.id}>
+      <div className="ImageCard" id={props.id} onMouseEnter={handleHover} onMouseLeave={handleHover}>
+
         {/* If is Auth add a delete, edit button else return the image */}
         {
             props.isAuth ?
@@ -87,15 +94,19 @@ const ImageCard = (props) => {
             :
             null
         }
-        <div className="imgDetails">
-            <div>Title: {data.title}</div>
-            <div>description: {data.description}</div>
-            <div>Date: {data.date}</div>
-            <div>Owner: {data.owner}</div>
-        </div>
-        <div className="imgContainer">
-            <img src={imgSrc} alt="failedImg"/>
-        </div>
+        {
+            showDetails ?
+            <div className="imgDetails">
+                <div>Title: {data.title}</div>
+                <div>description: {data.description}</div>
+                <div>Date: {data.date}</div>
+                <div>Owner: {data.owner}</div>
+            </div>
+            :
+            <div className="imgContainer">
+                <img src={imgSrc} alt="failedImg"/>
+            </div>
+        }
       </div>
     );
   }
