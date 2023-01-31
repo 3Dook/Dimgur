@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
+import './css/Home.css';
 import ImageCard from "./ImageCard";
 
 const domain = "http://localhost:5001";
@@ -57,8 +58,8 @@ function Home() {
       </div>
       <div>
         Images content cards go here
-        <div>
-            Collection: 
+        <div className='ImageCollections'>
+{/*             Collection:  */}
             {
             collection.map((ElementId, key)=>{
                 return(

@@ -96,17 +96,18 @@ const ImageCard = (props) => {
         }
         {
             showDetails ?
+            null
+            :
             <div className="imgDetails">
                 <div>Title: {data.title}</div>
                 <div>description: {data.description}</div>
                 <div>Date: {data.date}</div>
                 <div>Owner: {data.owner}</div>
             </div>
-            :
+        }
             <div className="imgContainer">
                 <img src={imgSrc} alt="failedImg"/>
             </div>
-        }
       </div>
     );
   }
