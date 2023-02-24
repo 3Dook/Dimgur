@@ -62,9 +62,9 @@ function App() {
         </Routes>
       </Router>
       </div>
-      <div className='test'>
+{/*       <div className='test'>
         user is {user}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {RxHamburgerMenu} from 'react-icons/rx';
 import {AiOutlineClose} from 'react-icons/ai';
-
+import axios from 'axios';
+const domain = "http://localhost:5001/user";
 
 
 
@@ -41,6 +42,27 @@ const MenuList = (props) => {
         flag = 'anonymous'
     }
 
+    const handleLogOut = async e =>{
+        e.preventDefault();
+        try {
+            const response = await axios({
+                method: 'post',
+                url: domain + "/logout",
+                withCredentials: true,
+            })
+                .then((res)=>{
+                    console.log(res.data)
+                })
+                .catch((e)=>{
+                    console.log("failed - ", e.response.data.message)
+                })
+            window.location = "/"; 
+        } catch (error) {
+            console.error(error.Message)
+            
+        }
+    }
+
     return (
         <ul className="w-full h-[60vh] pr-8 flex flex-col leading-loose
         ">
@@ -53,6 +75,14 @@ const MenuList = (props) => {
                 );
             })}
             <li className=''><a href='#contactMe'>Contact</a></li>
+            {
+                flag=="anonymous" ?
+                <form onSubmit={handleLogOut}>
+                    <input type="submit" value="LOG OUT" className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8"/>
+                </form>
+                :
+                null
+            }
         </ul>
     )
 }
@@ -65,12 +95,12 @@ const Navbar = props => {
     }
 
     return (
-        <div className='flex'>
+        <div className='flex z-10'>
             <div className='fixed right-0 pt-8 pr-8' onClick={handleToggleShowNav}>
                 <RxHamburgerMenu size="40"/>
             </div>
 
-            <div className= {'flex fixed w-[22em] max-w-[85%] h-full right-0 ease-in-out duration-500 text-white ' + (showNav ? 'translate-x-0' : 'translate-x-full')}>
+            <div className= {'z-10 flex fixed w-[22em] max-w-[85%] h-full right-0 ease-in-out duration-500 text-white ' + (showNav ? 'translate-x-0' : 'translate-x-full')}>
                 {/* below is a tailwind css trick to spin the svg icon upon open and closing */}
                 <div className='h-[60px] aspect-square pt-4' onClick={handleToggleShowNav}>
                     <div className={showNav ? '' : 'rotate-[360deg] ease-in-out duration-500 text-[#585858]  '}>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import './css/ImageCard.css';
 const domain = "http://localhost:5001";
 
 

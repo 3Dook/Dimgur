@@ -40,31 +40,29 @@ const SignUpCard = (props) => {
     }
 
     return (
-        <div className="bg-[#585858]">
-            <h1>
+        <div className="flex flex-col items-center mb-6">
+            <h1 className="text-3xl font-bold uppercase">
                 {props.loginSign}
             </h1>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="flex flex-col items-center w-full">
 
                 <label>
-                    <div className="userNameLabel">User Name</div>
                     <input type="text" name="username" 
-                    className="usernameInput"
-                    value={username} 
+                    className="usernameInput w-full bg-[transparent] border-b-2 border-[#c9c9c9] block h-7 my-4"
+                    value={username} placeholder="USERNAME"
                     onChange={ e => setUserName(e.target.value)}/>
                 </label>
 
 
                 <label>
-                    <div className="pwLabel">Password</div>
                     <input type="text" name="pw" 
-                    className="pwInput"
-                    value={passW} 
+                    className="pwInput bg-[transparent] border-b-2 border-[#c9c9c9] block h-7 my-4"
+                    value={passW} placeholder="PASSWORD"
                     onChange={ e => setPassW(e.target.value)}/>
                 </label>
 
-                <input type="submit" value="Submit" className="submitInput"/>
+                <input type="submit" value="Submit" className="submitInput shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8"/>
                 
             </form>
         </div>
@@ -82,11 +80,11 @@ const SignUp = () => {
     }
 
     return (
-        <div className="signup">
+        <div className="bg-[#585858] mx-8 my-8 drop-shadow-lg border-[#585858] rounded-md px-2 py-2">
 
-            <div className="close">
+            <div className="close flex justify-between relative mb-8">
                 <IconContext.Provider value={{ color: "black", size: "2em" }}>
-                    <AiOutlineSwap onClick={handleSwapSection} />
+                    <AiOutlineSwap onClick={handleSwapSection} className=''/>
                 </IconContext.Provider>
                 <IconContext.Provider value={{ color: "black", size: "2em" }}>
                         <Link to={'/'}>
@@ -95,13 +93,13 @@ const SignUp = () => {
                 </IconContext.Provider>
             </div>
         
-            <div className="swapSection">
+            <div className="">
 
             {
                 showLogin ?
-                <SignUpCard loginSign="register"/>
-                :
                 <SignUpCard loginSign="login"/>
+                :
+                <SignUpCard loginSign="register"/>
             }
             </div>
             
