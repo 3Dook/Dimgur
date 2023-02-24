@@ -2,17 +2,18 @@
     --menu-display: none;
 }
 
+
 .hamburger {
     position: fixed;
     z-index: 1002;
 }
 .nav-container {
     display: var(--menu-display );
-    position: absolute;
+    position: fixed;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: gray;
+    background-color: #585858;
     height: 100vh;
     width: 60vw;
     z-index: 1001;

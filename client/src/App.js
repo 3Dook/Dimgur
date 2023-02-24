@@ -10,8 +10,10 @@ import NavBar from './Navbar';
 import Museum from "./Museum";
 import EditImage from "./EditImage";
 import axios from 'axios';
+import Navbar from "./components/Navbar";
 
 const domain = "http://localhost:5001"
+
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -46,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar auth={isAuth}/>
+      <Navbar auth={isAuth}/>
       <Header/>
       <div className='main'>
       <Router>

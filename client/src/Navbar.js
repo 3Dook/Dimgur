@@ -140,19 +140,6 @@ const NavBar = (props)=> {
                 <NotAuthBar/>
             }
 
-{/*             <ul className="navMenuItems">
-                    {sidebarData.map((item, index) => {
-                        return (
-                            <li key={index} className={item.cName}>
-                                
-                                <a id={item.cName} href={item.path}>{item.title}</a>
-                            </li>
-                        );
-                    })}
-            <form onSubmit={handleLogOut}>
-                <input type="submit" value="LOG OUT" className="logOutSubmit"/>
-            </form>
-            </ul> */}
         </nav>
 
       </div>
