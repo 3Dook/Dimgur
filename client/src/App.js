@@ -4,13 +4,13 @@ import Header from './Header';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
-import SignUp from './SignUp';
+/* import SignUp from './SignUp'; */
 import Account from './Account';
-import NavBar from './Navbar';
 import Museum from "./Museum";
 import EditImage from "./EditImage";
 import axios from 'axios';
 import Navbar from "./components/Navbar";
+import SignUp from "./components/Signup";
 
 const domain = "http://localhost:5001"
 

@@ -84,7 +84,7 @@ const Navbar = props => {
                         <h1 className='text-3xl font-bond mr-4 sm:text-4xl'>
                             MENU 
                         </h1>
-                        <MenuList />
+                        <MenuList auth={props.auth}/>
                     </div>
                 </div>
             </div>
