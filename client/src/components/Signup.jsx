@@ -29,12 +29,20 @@ const SignUpCard = (props) => {
                     window.location = "/account"; 
                 })
                 .catch((e)=>{
-                    console.log("failed - ", e.response.data.message)
-                    window.location = "/signup"
+                    /*RETURN ERROR FOR MESSAGE*/
+                    /*                     window.location = "/signup" */
+                    if(props.loginSign == "login"){
+                        console.log(e.message)
+                        props.changeMsg(e.message)
+                    }else{
+                        console.log("failed - ", e.response.data.message)
+                        props.changeMsg(e.response.data.message)
+                    }
                 })
 /*             window.location = "/";  */
         } catch (error) {
             console.error(error.message)
+            props.changeMsg(e.response.data.message)
             
         }
     }
@@ -79,32 +87,51 @@ const SignUp = () => {
         setShowLogin(!showLogin)
     }
 
+    const [msg, setMsg] = useState("")
+
+    const closeMsg = () => {
+        setMsg("")
+    }
+
     return (
-        <div className="bg-[#585858] mx-8 my-8 drop-shadow-lg border-[#585858] rounded-md px-2 py-2">
-
-            <div className="close flex justify-between relative mb-8">
-                <IconContext.Provider value={{ color: "black", size: "2em" }}>
-                    <AiOutlineSwap onClick={handleSwapSection} className=''/>
-                </IconContext.Provider>
-                <IconContext.Provider value={{ color: "black", size: "2em" }}>
-                        <Link to={'/'}>
-                            <AiOutlineClose />
-                        </Link>
-                </IconContext.Provider>
-            </div>
-        
-            <div className="">
-
+        <div className="flex flex-col items-center">
             {
-                showLogin ?
-                <SignUpCard loginSign="login"/>
+                msg.length > 0 ?
+                <div className="bg-red-200 flex w-[80vw] flex justify-between  rounded-md text-2xl">
+                    {msg}
+                    <IconContext.Provider value={{ color: "black", size: "2em" }}>
+                        <AiOutlineClose onClick={closeMsg} />
+                    </IconContext.Provider>
+                </div>
                 :
-                <SignUpCard loginSign="register"/>
+                null
             }
+
+            <div className="w-[80vw] bg-[#585858] mx-8 my-8 drop-shadow-lg border-[#585858] rounded-md px-2 py-2">
+
+                <div className="close flex justify-between relative mb-8">
+                    <IconContext.Provider value={{ color: "black", size: "2em" }}>
+                        <AiOutlineSwap onClick={handleSwapSection} className=''/>
+                    </IconContext.Provider>
+                    <IconContext.Provider value={{ color: "black", size: "2em" }}>
+                            <Link to={'/'}>
+                                <AiOutlineClose />
+                            </Link>
+                    </IconContext.Provider>
+                </div>
+                <div className="">
+
+                {
+                    showLogin ?
+                    <SignUpCard loginSign="login" changeMsg={value => setMsg(value)}/>
+                    :
+                    <SignUpCard loginSign="register" changeMsg={value => setMsg(value)}/>
+                }
+                </div>
+                
+
+
             </div>
-            
-
-
         </div>
 
     )
