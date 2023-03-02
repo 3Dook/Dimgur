@@ -1,7 +1,7 @@
 import React, {useEffect, useState } from "react";
 import axios from 'axios';
 
-import ImageCard from "./ImageCard";
+import ImageCard from "./components/ImageCard";
 import './css/Home.css'
 const domain = "http://localhost:5001/user";
 

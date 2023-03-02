@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 
 import './css/Home.css';
-import ImageCard from "./ImageCard";
+import ImageCard from "./components/ImageCard";
 
 const domain = "http://localhost:5001";
 
@@ -57,7 +57,6 @@ function Home() {
         <div>{searchInput}</div>
       </div>
       <div>
-        Images content cards go here
         <div className='ImageCollections'>
 {/*             Collection:  */}
             {
