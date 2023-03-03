@@ -14,6 +14,13 @@ const SignUpCard = (props) => {
     const loginSignCard = props.loginSign;
     const handleSubmit = async e =>{
         e.preventDefault();
+
+        // makesure all the validation passes before sending to claim
+
+        if(!vLower || !vUpper || !vNumber || !vMin){
+            return -1
+        } 
+
         try {
             const response = await axios({
                 method: 'post',
@@ -47,6 +54,40 @@ const SignUpCard = (props) => {
         }
     }
 
+    const [vLower, setVlower] = useState(false) 
+    const [vUpper, setVUpper] = useState(false) 
+    const [vNumber, setVNumber] = useState(false) 
+    const [vMin, setVMin] = useState(false)
+    const handlePasswordChange = (e) => {
+        setPassW(e.target.value)
+
+        console.log(passW)
+
+        if(passW.match(/[a-z]/)){
+            setVlower(true)
+        } else {
+            setVlower(false)
+        }
+
+        if(passW.match(/[A-Z]/)){
+            setVUpper(true)
+        } else {
+            setVUpper(false)
+        }
+
+        if(passW.match(/[0-9]/)){
+            setVNumber(true)
+        } else {
+            setVNumber(false)
+        }
+
+        if(passW.length > 7){
+            setVMin(true)
+        }else{
+            setVMin(false)
+        }
+    }
+
     return (
         <div className="flex flex-col items-center mb-6">
             <h1 className="text-3xl font-bold uppercase">
@@ -64,15 +105,24 @@ const SignUpCard = (props) => {
 
 
                 <label>
-                    <input type="text" name="pw" 
+                    <input type="password" name="pw" 
                     className="pwInput bg-[transparent] border-b-2 border-[#c9c9c9] block h-7 my-4"
                     value={passW} placeholder="PASSWORD"
-                    onChange={ e => setPassW(e.target.value)}/>
+                    onChange={handlePasswordChange}/>
                 </label>
+
+                <div id="message">
+                <h3>Password must contain the following:</h3>
+                <p id="letter" className={vLower ? "text-green-400" : "text-red-400"}>A <b>lowercase</b> letter</p>
+                <p id="capital" className={vUpper ? "text-green-400" : "text-red-400"} >A <b>capital (uppercase)</b> letter</p>
+                <p id="number" className={vNumber ? "text-green-400" : "text-red-400"}>A <b>number</b></p>
+                <p id="length" className={vMin ? "text-green-400" : "text-red-400"} >Minimum <b>8 characters</b></p>
+                </div>
 
                 <input type="submit" value="Submit" className="submitInput shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8"/>
                 
             </form>
+
         </div>
     )
 }
