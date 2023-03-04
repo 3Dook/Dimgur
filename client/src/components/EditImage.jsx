@@ -70,39 +70,35 @@ function EditImage(){
         handleGetImg();
     }, [])
     return(
-        <div>
-            EDITing in progress
-            <div className="collectionForm">
-            <div>
-                <div>USER INFO</div>
-                <div className="imgContainer">
-                    <img src={imgSrc} alt="failedImg"/>
-                </div>
+        <div className="flex flex-col bg-gray-300 m-2 rounded-md justify-between">
+            <h1 className="text-3xl font-black self-center mt-4">
+                Editing in progress
+            </h1>
+            <div className="imgContainer self-center my-4">
+                <img src={imgSrc} alt="failedImg"/>
             </div>
-            <form onSubmit={handleImageEdit}>
-                <label>
-                    <div className="titleLabel">TITLE</div>
+            <form onSubmit={handleImageEdit} className="flex flex-col w-full leading-8 mx-2">
+                <label className="flex w-full my-2">
+                    <div className="titleLabel text-2xl">TITLE: </div>
                     <input type="text" name="title" 
-                    className="titleInput"
+                    className="titleInput flex-1 ml-4 rounded-sm mr-4"
                     value={title} 
                     onChange={ e => setTitle(e.target.value)}/>
                 </label>
 
-
-                <label>
-                    <div className="descriptionLabel">DESCRIPTION</div>
-                    <input type="text" name="description" 
-                    className="descriptionInput"
+                <label className="w-full flex flex-col">
+                    <div className="descriptionLabel text-2xl">DESCRIPTION</div>
+                    <textarea name="description" 
+                    className="descriptionInput rounded-sm mr-4"
                     value={description} 
                     onChange={ e => setDescription(e.target.value)}/>
                 </label>
 
-                <div>
-                <input type="submit" value="Submit" className="submitInput" />
+                <div className="self-center">
+                    <input type="submit" value="SAVE" className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8" />
                 </div>
 
             </form>
-        </div>
         </div>
     )
 }

@@ -7,7 +7,7 @@ import About from './About';
 /* import SignUp from './SignUp'; */
 import Account from './components/Account';
 import Museum from "./Museum";
-import EditImage from "./EditImage";
+import EditImage from "./components/EditImage";
 import axios from 'axios';
 import Navbar from "./components/Navbar";
 import SignUp from "./components/Signup";
