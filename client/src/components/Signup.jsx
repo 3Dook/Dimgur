@@ -17,7 +17,7 @@ const SignUpCard = (props) => {
 
         // makesure all the validation passes before sending to claim
 
-        if(!vLower || !vUpper || !vNumber || !vMin){
+        if((!vLower || !vUpper || !vNumber || !vMin) && props.loginSign != 'login'){
             return -1
         } 
 
@@ -111,13 +111,18 @@ const SignUpCard = (props) => {
                     onChange={handlePasswordChange}/>
                 </label>
 
-                <div id="message">
-                <h3>Password must contain the following:</h3>
-                <p id="letter" className={vLower ? "text-green-400" : "text-red-400"}>A <b>lowercase</b> letter</p>
-                <p id="capital" className={vUpper ? "text-green-400" : "text-red-400"} >A <b>capital (uppercase)</b> letter</p>
-                <p id="number" className={vNumber ? "text-green-400" : "text-red-400"}>A <b>number</b></p>
-                <p id="length" className={vMin ? "text-green-400" : "text-red-400"} >Minimum <b>8 characters</b></p>
-                </div>
+                {
+                    props.loginSign == "login" ?
+                    null
+                    :
+                    <div id="message">
+                        <h3>Password must contain the following:</h3>
+                        <p id="letter" className={vLower ? "text-green-400" : "text-red-400"}>A <b>lowercase</b> letter</p>
+                        <p id="capital" className={vUpper ? "text-green-400" : "text-red-400"} >A <b>capital (uppercase)</b> letter</p>
+                        <p id="number" className={vNumber ? "text-green-400" : "text-red-400"}>A <b>number</b></p>
+                        <p id="length" className={vMin ? "text-green-400" : "text-red-400"} >Minimum <b>8 characters</b></p>
+                    </div>
+                }
 
                 <input type="submit" value="Submit" className="submitInput shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8"/>
                 
