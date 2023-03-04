@@ -1,8 +1,7 @@
 import React, {useEffect, useState } from "react";
 import axios from 'axios';
 
-import ImageCard from "./components/ImageCard";
-import './css/Home.css'
+import ImageCard from "./ImageCard";
 const domain = "http://localhost:5001/user";
 
 function Account(props) {
@@ -80,18 +79,17 @@ function Account(props) {
     }, []);
 
     return (
-      <div className="">
-          <h1>Account</h1>
-          <form onSubmit={handleAccount3}>
-              <input type="submit" value="Submit" className="submitInput" />
-          </form>
+      <div className="flex flex-col">
+          <h1 className="text-3xl font-black self-center"
+          >{user.username}'s Account</h1>
+        <div className="underline self-center">{user.id}</div>
         
-          <form onSubmit={handleAccountDeletion}>
-              <input type="submit" value="DELETE" className="submitInput" />
+          <form onSubmit={handleAccountDeletion} className="self-center">
+              <input type="submit" value="DELETE USER" className="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8" />
           </form>
 
-        <div>USERNAME: {user.username} - {user.id}</div>
-        <div className="ImageCollections">
+
+        <div className="flex flex-wrap justify-around items-center">
             {
             collection.map((ElementId, key)=>{
                 return(
@@ -100,8 +98,9 @@ function Account(props) {
             })
             }
         </div>
-        <div>
-            <button onClick={()=>{
+        <div className="self-center">
+            <button className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-8"
+            onClick={()=>{
                 window.location = '/museum'
             }}>ADD IMAGE</button>
         </div>

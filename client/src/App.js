@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 /* import SignUp from './SignUp'; */
-import Account from './Account';
+import Account from './components/Account';
 import Museum from "./Museum";
 import EditImage from "./EditImage";
 import axios from 'axios';
