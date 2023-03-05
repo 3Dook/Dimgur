@@ -11,6 +11,7 @@ import EditImage from "./components/EditImage";
 import axios from 'axios';
 import Navbar from "./components/Navbar";
 import SignUp from "./components/Signup";
+import Footer from "./components/Footer";
 
 const domain = "http://localhost:5001"
 
@@ -62,9 +63,7 @@ function App() {
         </Routes>
       </Router>
       </div>
-{/*       <div className='test'>
-        user is {user}
-      </div> */}
+      <Footer/>
     </div>
   );
 }
