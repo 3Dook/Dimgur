@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
-
+import {BsSearch} from 'react-icons/bs'
 import ImageCard from "./components/ImageCard";
 
 const domain = "http://localhost:5001";
@@ -43,17 +43,17 @@ function Home() {
     }, []);
 
   return (
-    <div className="">
-        Home
-      <div>
+    <div className="flex flex-col">
+      
+      <div className='w-[80%] self-center bg-[#f6f6f6] rounded-md flex items-center'>
         <input 
-          className='searchBar'
+          className='searchBar flex-1 bg-[transparent] h-12'
           type="text"
           placeholder='Search Here'
           onChange={handleSearchChange}
           value={searchInput}
         />
-        <div>{searchInput}</div>
+        <BsSearch size={30}/>
       </div>
       <div>
         <div className='flex flex-wrap justify-around items-center'>
