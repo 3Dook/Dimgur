@@ -6,7 +6,7 @@ import Home from './Home';
 import About from './components/About';
 /* import SignUp from './SignUp'; */
 import Account from './components/Account';
-import Museum from "./Museum";
+import Museum from "./components/Museum";
 import EditImage from "./components/EditImage";
 import axios from 'axios';
 import Navbar from "./components/Navbar";
