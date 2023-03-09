@@ -24,7 +24,7 @@ router.route('/register')
             })
         } catch(e){
             console.log(e)
-            res.status(400).json({message: "FAILED at registering user"})
+            res.status(400).json({message: "FAILED - registering user invalid username and/or Password"})
         }
     })
 
