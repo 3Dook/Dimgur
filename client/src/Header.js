@@ -1,13 +1,12 @@
-
-import "./css/Header.css"
-import MySymbol from './logo.svg';
+// import "./css/Header.css";
+import MySymbol from "./logo.svg";
 function Header() {
   return (
-    <div className="header">
-            <div  className="inner">
-                <span className="symbol"><img src={MySymbol} alt="DDD" className="symbolImg"/></span>
-                <span className='title'>DIMGUR</span>
-            </div>
+    <div className="flex h-[25vh] justify-center items-center">
+      <div className="symbol left-4">
+        <img src={MySymbol} alt="DDD" className="symbolImg w-16" />
+      </div>
+      <div className="title font-bold text-5xl">DIMGUR</div>
     </div>
   );
 }

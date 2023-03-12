@@ -1,21 +1,21 @@
 .header {
-    height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .inner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .symbolImg {
-    height: auto;
-    width: 40%;
+  height: auto;
+  width: 40%;
 }
 
 .title {
-    font-size: 3rem;
+  font-size: 3rem;
 }
