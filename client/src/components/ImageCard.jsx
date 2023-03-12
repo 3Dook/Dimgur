@@ -102,7 +102,7 @@ const ImageCard = (props) => {
       />
       <button
         onClick={() => {
-          window.location = "/edit/?id=" + props.id;
+          window.location = domain + "/images/" + props.id;
         }}
         className="shadow self-center bg-blue-400 hover:bg-blue-300 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mt-2 mb-2 mr-2"
       >
