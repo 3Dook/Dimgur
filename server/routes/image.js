@@ -93,7 +93,6 @@ router.route("/search/:max/:index/:q").get(async (req, res) => {
   if (req.params.q === "*") {
     req.params.q = "";
   }
-  console.log(req.params.q);
   await Img.find({ description: { $regex: req.params.q, $options: "i" } })
     .then((result) => {
       res.status(202).json({
