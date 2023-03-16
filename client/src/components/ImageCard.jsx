@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
-const domain = "http://localhost:5001";
+const domain = process.env.REACT_APP_DOMAIN || "http://localhost:5001";
 
 const ImgBar = (props) => {
   const handleDeleteImg = async () => {

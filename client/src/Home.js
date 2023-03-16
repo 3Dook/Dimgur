@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BsSearch } from "react-icons/bs";
 import ImageCard from "./components/ImageCard";
-const domain = "http://localhost:5001";
+const domain = process.env.REACT_APP_DOMAIN || "http://localhost:5001";
 
 function Home() {
   const [searchInput, setSearchInput] = useState("");
