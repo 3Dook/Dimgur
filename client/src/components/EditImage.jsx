@@ -72,7 +72,7 @@ function EditImage() {
     handleGetImg();
   }, []);
   return (
-    <div className="flex flex-col bg-gray-300 m-2 rounded-md justify-between">
+    <div className="flex flex-col bg-[#f6f6f6] m-2 rounded-md justify-between">
       <h1 className="text-3xl font-black self-center mt-4">
         Editing in progress
       </h1>
@@ -88,17 +88,17 @@ function EditImage() {
           <input
             type="text"
             name="title"
-            className="titleInput flex-1 ml-4 rounded-sm mr-4"
+            className="titleInput flex-1 ml-4 rounded-sm mr-4 bg-[transparent] border-b-2"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
 
-        <label className="w-full flex flex-col">
+        <label className="w-full flex flex-col ">
           <div className="descriptionLabel text-2xl">DESCRIPTION</div>
           <textarea
             name="description"
-            className="descriptionInput rounded-sm mr-4"
+            className="descriptionInput rounded-sm mr-4 bg-[transparent] border-b-2 "
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

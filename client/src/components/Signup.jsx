@@ -179,7 +179,7 @@ const SignUp = () => {
         </div>
       ) : null}
 
-      <div className="w-[80vw] bg-[#585858] mx-8 my-8 drop-shadow-lg border-[#585858] rounded-md px-2 py-2">
+      <div className="w-[80vw] bg-[#f6f6f6] mx-8 my-8 drop-shadow-lg border-[#585858] rounded-md px-2 py-2">
         <div className="close flex justify-between relative mb-8">
           <IconContext.Provider value={{ color: "black", size: "2em" }}>
             <AiOutlineSwap onClick={handleSwapSection} className="" />
